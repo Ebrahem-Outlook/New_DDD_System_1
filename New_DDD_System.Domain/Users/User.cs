@@ -1,60 +1,51 @@
-﻿namespace New_DDD_System.Domain.Users;
+﻿using New_DDD_System.Domain.Core.BaseType;
+using New_DDD_System.Domain.Users.Events;
 
-/// <summary>
-/// 
-/// </summary>
-public sealed class User 
-{
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="fristName"></param>
-    /// <param name="lastName"></param>
-    /// <param name="email"></param>
-    /// <param name="phone"></param>
+namespace New_DDD_System.Domain.Users;
+
+public sealed class User : AggregateRoot
+{    
     private User(string fristName, string lastName, string email, string phone)
+        : base(Guid.NewGuid())
     {
-        Id = Guid.NewGuid();
         FristName = fristName;
         LastName = lastName;
         Email = email;
         Phone = phone;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private User() { }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public Guid Id { get; }
+    public string FristName { get; private set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public string FristName { get; private set; }
+    public string LastName { get; private set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public string LastName { get; private set; }
+    public string Email { get; private set; } = default!;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public string Email { get; private set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public string Phone { get; private set; }
+    public string Phone { get; private set; } = default!;
 
     public static User Create(string firstName, string lastName, string email, string phone)
     {
-        User user = new User(firstName, lastName, email, phone);
+        User user = new(firstName, lastName, email, phone);
+
+        user.Raise(new UserCreatedDomainEvent(user));
 
         return user;
+    }
+
+    public void UpdateUser(string firstName, string lastName, string phone)
+    {
+        FristName = firstName;
+        LastName = lastName;
+        Phone = phone;
+
+        Raise(new UserUpdatedDomainEvent(this));
+    }
+
+    public void UpdateEmail(string email)
+    {
+        Email = email;
+
+        Raise(new UserEmailUpdatedDomainEvent(this));
     }
 }

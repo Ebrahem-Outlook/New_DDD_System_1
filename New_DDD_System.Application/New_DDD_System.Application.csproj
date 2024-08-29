@@ -10,4 +10,18 @@
     <ProjectReference Include="..\New_DDD_System.Domain\New_DDD_System.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Events\UserDeleted\" />
+    <Folder Include="Users\Events\UserUpdated\" />
+    <Folder Include="Users\Events\UserCreated\" />
+    <Folder Include="Users\Queries\GetById\" />
+    <Folder Include="Users\Queries\GetByName\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
 </Project>
