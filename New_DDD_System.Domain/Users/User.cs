@@ -33,19 +33,13 @@ public sealed class User : AggregateRoot
         return user;
     }
 
-    public void UpdateUser(string firstName, string lastName, string phone)
+    public void UpdateUser(string firstName, string lastName, string email, string phone)
     {
         FristName = firstName;
         LastName = lastName;
+        Email = email;
         Phone = phone;
 
         Raise(new UserUpdatedDomainEvent(this));
-    }
-
-    public void UpdateEmail(string email)
-    {
-        Email = email;
-
-        Raise(new UserEmailUpdatedDomainEvent(this));
     }
 }

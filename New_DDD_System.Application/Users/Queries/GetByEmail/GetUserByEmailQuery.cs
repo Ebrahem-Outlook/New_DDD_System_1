@@ -3,4 +3,4 @@ using New_DDD_System.Domain.Users;
 
 namespace New_DDD_System.Application.Users.Queries.GetByEmail;
 
-public sealed record GetByEmailQuery(string Email) : IQuery<User>;
+public sealed record GetUserByEmailQuery(string Email) : IQuery<User>;

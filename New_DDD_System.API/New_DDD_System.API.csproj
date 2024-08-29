@@ -18,8 +18,4 @@
     <ProjectReference Include="..\New_DDD_System.Infrastructure\New_DDD_System.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
