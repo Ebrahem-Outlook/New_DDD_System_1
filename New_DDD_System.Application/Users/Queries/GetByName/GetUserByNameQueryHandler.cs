@@ -3,10 +3,17 @@ using New_DDD_System.Domain.Users;
 
 namespace New_DDD_System.Application.Users.Queries.GetByName;
 
-internal sealed class GetUserByNameQueryHandler : IQueryHandler<GetUserByNameQuery, User>
+internal sealed class GetUserByNameQueryHandler : IQueryHandler<GetUserByNameQuery, IEnumerable<User>>
 {
-    public Task<User> Handle(GetUserByNameQuery request, CancellationToken cancellationToken)
+    private readonly IUserRepository _userRepository;
+
+    public GetUserByNameQueryHandler(IUserRepository userRepository)
     {
-        throw new NotImplementedException();
+        _userRepository = userRepository;
+    }
+
+    public async Task<IEnumerable<User>> Handle(GetUserByNameQuery request, CancellationToken cancellationToken)
+    {
+        return await _userRepository.GetByNameAsync(request.Name.ToLower(), cancellationToken);
     }
 }
