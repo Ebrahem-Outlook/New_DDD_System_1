@@ -18,6 +18,8 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddCors(builder => builder.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -31,6 +33,7 @@ public class Program
 
         app.UseAuthorization();
 
+        app.UseCors("AllowAll");
 
         app.MapControllers();
 
