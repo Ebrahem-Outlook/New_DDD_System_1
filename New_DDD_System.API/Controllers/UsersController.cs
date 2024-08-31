@@ -10,22 +10,22 @@ using New_DDD_System.Application.Users.Queries.GetByName;
 
 namespace New_DDD_System.API.Controllers;
 
-[Route("api/v1[Controller]")]
+[Route("api/v1/[Controller]")]
 [ApiController]
 public sealed class UsersController(ISender sender) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Create(CreateUserRequest request) => 
-        Ok(sender.Send(
+    public async Task<IActionResult> Create([FromBody] CreateUserRequest request) =>
+        Ok(await sender.Send(
             new CreateUserCommand(
                 request.FirstName, 
-                request.LastName, 
+                request.LastName,
                 request.Email, 
                 request.Phone)));
 
     [HttpPut]
-    public async Task<IActionResult> Update(UpdateUserRequest request) =>
-        Ok(sender.Send(
+    public async Task<IActionResult> Update([FromBody] UpdateUserRequest request) => 
+        Ok(await sender.Send(
             new UpdateUserRequest(
                 request.UserId, 
                 request.FirstName, 
@@ -34,7 +34,7 @@ public sealed class UsersController(ISender sender) : ControllerBase
                 request.Phone)));
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteUserRequest request) => Ok(sender.Send(new DeleteUserCommand(request.UserId)));
+    public async Task<IActionResult> Delete([FromBody] DeleteUserRequest request) => Ok(await sender.Send(new DeleteUserCommand(request.UserId)));
 
     [HttpGet]
     public async Task<IActionResult> GetAll() => Ok(await sender.Send(new GetAllUsersQuery()));

@@ -46,7 +46,7 @@ internal sealed class UserRepository(IDbContext dbContext) : IUserRepository
     {
         return await dbContext.Set<User>()
                               .AsNoTracking()
-                              .Where(user => user.FristName.Contains(name, StringComparison.OrdinalIgnoreCase))
+                              .Where(user => user.FristName.Contains(name))
                               .ToListAsync(cancellationToken);
     }
 }
